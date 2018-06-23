@@ -1,0 +1,22 @@
+{
+    "name": "devgroup/yii3_crm",
+    "description": "Awesome yii3 crm",
+    "type": "project",
+    "require": {
+        "yiisoft/yii2-dev": "~3.0.0-alpha1",
+        "ezyang/htmlpurifier": "dev-master"
+    },
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Alexander Kozhevnikov",
+            "email": "b37hr3z3n@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    }
+}
