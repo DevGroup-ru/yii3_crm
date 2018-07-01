@@ -32,7 +32,22 @@ $commonConfig = [
             ],
         ],
         'db' => include __DIR__ . '/db.php',
-
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    '__class' => yii\i18n\PhpMessageSource::class,
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                ],
+                'frontend' => [
+                    '__class' => \app\components\FrontendPhpMessageSource::class,
+                    'basePath' => '@app/messages',
+                ],
+            ],
+        ],
     ],
 ];
 

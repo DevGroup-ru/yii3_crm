@@ -6,10 +6,14 @@ use yii\helpers\ArrayHelper;
 $webConfig = [
 
     'components' => [
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'locales/<language>/<namespace>.json' => 'locales/index',
             ],
         ],
         'request' => [

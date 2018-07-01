@@ -9,6 +9,7 @@ $consoleConfig = [
             'class' => MigrateController::class,
             'migrationPath' => [
                 '@app/migrations',
+                '@app/modules/install/migrations',
                 '@yii/rbac/migrations',
             ],
             'migrationNamespaces' => [

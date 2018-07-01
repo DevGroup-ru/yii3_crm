@@ -53,32 +53,50 @@ module.exports = env => {
   const removeEmpty = array => array.filter(p => !!p);
   return {
     entry: {
+      'babel-polyfill': 'babel-polyfill',
       app: './app/index.js',
-      vendor: [
-        'babel-polyfill',
-        'react',
-        'react-dom',
-        'react-router-dom',
-        'react-router-redux',
-        // 'react-select2-wrapper',
-        'react-svg',
-        'redux',
-        'redux-devtools-extension',
-        'redux-form',
-        'redux-thunk',
-        'redux-act',
-        'query-string',
-        'react-jss',
-        'react-redux',
-        'prop-types',
-        'classnames',
-        'material-ui',
-        'material-ui/transitions/Collapse',
-        'jstree',
-        'whatwg-fetch',
-        'redux-form-yup',
-        'yup',
-      ]
+      // vendor: [
+      //
+      //   'babel-polyfill',
+      //   'i18next',
+      //   'i18next-xhr-backend',
+      //   'react',
+      //   'react-dom',
+      //   'react-router-dom',
+      //   'react-router-redux',
+      //   'connected-react-router',
+      //   'debounce',
+      //   'deepmerge',
+      //   'dom-helpers',
+      //   'popper.js',
+      //   'rafl',
+      //   'react-event-listener',
+      //   'react-transition-group',
+      //   'scroll',
+      //   'keycode',
+      //   'hoist-non-react-statics',
+      //   'global',
+      //   'fbjs',
+      //   // 'react-select2-wrapper',
+      //   'react-svg',
+      //   'redux',
+      //   'redux-devtools-extension',
+      //   'redux-form',
+      //   'redux-thunk',
+      //   'redux-act',
+      //   'jss',
+      //   'query-string',
+      //   'react-jss',
+      //   'react-redux',
+      //   'prop-types',
+      //   'classnames',
+      //   '@material-ui/core',
+      //
+      //   // 'normalize.css/normalize.css',
+      //   'whatwg-fetch',
+      //   'redux-form-yup',
+      //   'yup',
+      // ]
     },
     output: {
       path: path.resolve(__dirname, ENV_PROD ? 'dist' : 'dist-dev'),
@@ -172,6 +190,16 @@ module.exports = env => {
 
     devtool: ENV_PROD ? undefined : 'source-map',
     optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all'
+          }
+        }
+      },
+
       minimizer: ENV_PROD ? [
         new UglifyJsPlugin({
           cache: true,

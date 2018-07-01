@@ -3,6 +3,7 @@
 namespace app\modules\install\behavior;
 
 
+use app\controllers\LocalesController;
 use app\helpers\InstallationHelper;
 use app\models\Setting;
 use app\modules\install\Module;
@@ -21,6 +22,10 @@ class InstallationBehavior extends Behavior
         \yii\gii\Module::class,
     ];
 
+    public $ignoredControllers = [
+        LocalesController::class,
+    ];
+
     /**
      * @return array
      */
@@ -36,8 +41,14 @@ class InstallationBehavior extends Behavior
      */
     public function checkInstallation()
     {
-        if (in_array(get_class(Yii::$app->controller->module), $this->ignoreModules) === false
-            && Setting::get(InstallationHelper::SETTING_APP_INSTALLED) === false) {
+        if (in_array(get_class(Yii::$app->controller->module), $this->ignoreModules)) {
+            return;
+        }
+        if (Yii::$app->controller->module instanceof Yii::$app &&
+            in_array(get_class(Yii::$app->controller), $this->ignoredControllers)) {
+            return;
+        }
+        if (Setting::get(InstallationHelper::SETTING_APP_INSTALLED) === false) {
             Yii::$app->controller->redirect(['/install/']);
         }
     }

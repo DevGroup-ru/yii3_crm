@@ -1,1 +1,1 @@
-{"version":3,"sources":["webpack:///./app/app/app.scss","webpack:///./app/app.scss"],"names":[],"mappings":"AAAA;EACE;CCCD","file":"app.bundle.css","sourcesContent":["body {\n  color: #fff;\n}","body {\n  color: #fff;\n}\n\n"],"sourceRoot":""}
+{"version":3,"sources":[],"names":[],"mappings":"","file":"app.bundle.css","sourceRoot":""}
