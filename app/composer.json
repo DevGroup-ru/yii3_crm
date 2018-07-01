@@ -6,6 +6,11 @@
         "yiisoft/yii2-dev": "~3.0.0-alpha1",
         "ezyang/htmlpurifier": "dev-master"
     },
+    "require-dev": {
+        "yiisoft/yii2-debug": "2.1.x-dev",
+        "yiisoft/yii2-gii": "2.1.x-dev",
+        "phpunit/phpunit": "~7.2.6"
+    },
     "license": "BSD",
     "authors": [
         {
@@ -18,5 +23,14 @@
         "psr-4": {
             "app\\": "./"
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {"tests\\": "tests"}
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

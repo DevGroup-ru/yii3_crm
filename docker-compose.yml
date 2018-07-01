@@ -21,3 +21,15 @@ services:
     volumes:
       - ./volumes/mysql:/var/lib/mysql
       - ./my.cnf:/etc/mysql/conf.d/user.cnf
+  dbtest:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: yii3_crm
+      MYSQL_USER: yii3
+      MYSQL_PASSWORD: qxGx6hPAxM5WAfDea
+      TIMEZONE: Europe/Moscow
+
+    volumes:
+      - ./volumes/mysql_test:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/conf.d/user.cnf
