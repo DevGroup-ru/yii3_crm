@@ -147,82 +147,100 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([958,0]);
+/******/ 	deferredModules.push([968,0]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 296:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(39);
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = _default;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(112));
 
-exports.default = function (moduleName, componentName, store) {
+var _createClass2 = _interopRequireDefault(__webpack_require__(111));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(110));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(106));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(105));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(86));
+
+var _react = _interopRequireDefault(__webpack_require__(2));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(0));
+
+var _reactRedux = __webpack_require__(22);
+
+var _actions = __webpack_require__(264);
+
+function _default(moduleName, componentName, store) {
   var props = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
 
-  var LoadableComponent = function (_React$Component) {
-    _inherits(LoadableComponent, _React$Component);
+  var LoadableComponent =
+  /*#__PURE__*/
+  function (_React$Component) {
+    (0, _inherits2.default)(LoadableComponent, _React$Component);
 
     function LoadableComponent() {
-      _classCallCheck(this, LoadableComponent);
-
-      return _possibleConstructorReturn(this, (LoadableComponent.__proto__ || Object.getPrototypeOf(LoadableComponent)).apply(this, arguments));
+      (0, _classCallCheck2.default)(this, LoadableComponent);
+      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(LoadableComponent).apply(this, arguments));
     }
 
-    _createClass(LoadableComponent, [{
-      key: 'componentWillMount',
+    (0, _createClass2.default)(LoadableComponent, [{
+      key: "componentWillMount",
       value: function componentWillMount() {
         if (this.props.loaded === undefined) {
           this.props.LoadModule(store);
         }
       }
     }, {
-      key: 'render',
+      key: "render",
       value: function render() {
         if (this.props.loaded === true) {
           if (window[moduleName] === undefined) {
-            throw 'Could not find module ' + moduleName + '. Module doesn\'t export himself?';
+            throw "Could not find module ".concat(moduleName, ". Module doesn't export himself?");
           }
 
           if (window[moduleName].default[componentName] === undefined) {
-            throw 'Could not find component ' + componentName + ' in ' + moduleName + ' module. Component is not exported in module?';
+            throw "Could not find component ".concat(componentName, " in ").concat(moduleName, " module. Component is not exported in module?");
           }
 
-          return _react2.default.createElement(window[moduleName].default[componentName], props);
+          return _react.default.createElement(window[moduleName].default[componentName], props);
         } else if (this.props.loaded === 'error') {
-
-          throw 'Unable to load ' + moduleName + ' with component ' + componentName + '. Check network tab in dev tools and your AssetBundle for wrong 404 assets.';
+          throw "Unable to load ".concat(moduleName, " with component ").concat(componentName, ". Check network tab in dev tools and your AssetBundle for wrong 404 assets.");
         } else {
-          return _react2.default.createElement(
-            'div',
-            { className: 'CRM__LoadableComponent--isLoading' },
-            _react2.default.createElement(
-              'div',
-              { className: 'spinner' },
-              'Loading'
-            )
-          );
+          return _react.default.createElement("div", {
+            className: "CRM__LoadableComponent--isLoading"
+          }, _react.default.createElement("div", {
+            className: "spinner"
+          }, "Loading"));
         }
       } // /render
 
     }]);
-
     return LoadableComponent;
-  }(_react2.default.Component); // LoadableComponent
+  }(_react.default.Component); // LoadableComponent
 
-  LoadableComponent.propTypes = {
-    loaded: _propTypes2.default.any,
-    LoadModule: _propTypes2.default.func.isRequired
-  };
+
+  (0, _defineProperty2.default)(LoadableComponent, "propTypes", {
+    loaded: _propTypes.default.any,
+    LoadModule: _propTypes.default.func.isRequired
+  });
+
   var mapStateToProps = function mapStateToProps(store) {
     return {
       loaded: store.LoadedModules && store.LoadedModules[moduleName] || undefined
@@ -238,31 +256,11 @@ exports.default = function (moduleName, componentName, store) {
   };
 
   return (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoadableComponent);
-};
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(0);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactRedux = __webpack_require__(32);
-
-var _actions = __webpack_require__(300);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+}
 
 /***/ }),
 
-/***/ 297:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -271,153 +269,165 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _history = __webpack_require__(28);
+var _history = __webpack_require__(19);
 
 var history = (0, _history.createHashHistory)();
-exports.default = history;
+var _default = history;
+exports.default = _default;
 
 /***/ }),
 
-/***/ 299:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireDefault = __webpack_require__(39);
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBundle = exports.canLoadModule = exports.shouldLoadModule = exports.AvailableModules = undefined;
+exports.getBundle = exports.canLoadModule = exports.shouldLoadModule = exports.AvailableModules = void 0;
 
-var _warning = __webpack_require__(13);
+var _warning = _interopRequireDefault(__webpack_require__(8));
 
-var _warning2 = _interopRequireDefault(_warning);
+var AvailableModules = window.Yii3CRM__availableModules || {};
+exports.AvailableModules = AvailableModules;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AvailableModules = exports.AvailableModules = window.Yii3CRM__availableModules || {};
-
-var shouldLoadModule = exports.shouldLoadModule = function shouldLoadModule(state, moduleName) {
+var shouldLoadModule = function shouldLoadModule(state, moduleName) {
   var module = state[moduleName];
-
   return module === undefined || module === 'error';
 };
 
-var canLoadModule = exports.canLoadModule = function canLoadModule(moduleName) {
+exports.shouldLoadModule = shouldLoadModule;
+
+var canLoadModule = function canLoadModule(moduleName) {
   var moduleDefined = AvailableModules[moduleName] || false;
+
   if (moduleDefined === false) {
-    (0, _warning2.default)(false, 'Module ' + moduleName + ' is not defined in window.Yii3CRM__availableModules');
+    (0, _warning.default)(false, "Module ".concat(moduleName, " is not defined in window.Yii3CRM__availableModules"));
   }
+
   return moduleDefined;
 };
 
-var getBundle = exports.getBundle = function getBundle(moduleName) {
+exports.canLoadModule = canLoadModule;
+
+var getBundle = function getBundle(moduleName) {
   return AvailableModules[moduleName].bundle;
 };
 
+exports.getBundle = getBundle;
+
 /***/ }),
 
-/***/ 300:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireWildcard = __webpack_require__(439);
+
+var _interopRequireDefault = __webpack_require__(39);
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LoadModule = exports.SuccessLoadingModule = exports.ErrorLoadingModule = exports.StartLoadingModule = undefined;
+exports.LoadModule = exports.SuccessLoadingModule = exports.ErrorLoadingModule = exports.StartLoadingModule = void 0;
 
-var _reduxAct = __webpack_require__(194);
+var _regenerator = _interopRequireDefault(__webpack_require__(499));
 
-var _warning = __webpack_require__(13);
+var _promise = _interopRequireDefault(__webpack_require__(263));
 
-var _warning2 = _interopRequireDefault(_warning);
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(481));
 
-var _Utils = __webpack_require__(299);
+var _reduxAct = __webpack_require__(163);
 
-var Utils = _interopRequireWildcard(_Utils);
+var _warning = _interopRequireDefault(__webpack_require__(8));
 
-var _store = __webpack_require__(301);
+var Utils = _interopRequireWildcard(__webpack_require__(257));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _store = __webpack_require__(266);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var StartLoadingModule = (0, _reduxAct.createAction)('Start Loading Module');
+exports.StartLoadingModule = StartLoadingModule;
+var ErrorLoadingModule = (0, _reduxAct.createAction)('Error Loading Module');
+exports.ErrorLoadingModule = ErrorLoadingModule;
+var SuccessLoadingModule = (0, _reduxAct.createAction)('Success Loading Module');
+exports.SuccessLoadingModule = SuccessLoadingModule;
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var StartLoadingModule = exports.StartLoadingModule = (0, _reduxAct.createAction)('Start Loading Module');
-var ErrorLoadingModule = exports.ErrorLoadingModule = (0, _reduxAct.createAction)('Error Loading Module');
-var SuccessLoadingModule = exports.SuccessLoadingModule = (0, _reduxAct.createAction)('Success Loading Module');
-
-var LoadModuleAssets = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dispatch, moduleName, store) {
+var LoadModuleAssets =
+/*#__PURE__*/
+function () {
+  var _ref = (0, _asyncToGenerator2.default)(
+  /*#__PURE__*/
+  _regenerator.default.mark(function _callee(dispatch, moduleName, store) {
     var promises, _Utils$getBundle, css, js;
 
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return _regenerator.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             promises = [];
             _Utils$getBundle = Utils.getBundle(moduleName), css = _Utils$getBundle.css, js = _Utils$getBundle.js;
-
-
             js.forEach(function (filename) {
-              promises.push(new Promise(function (resolve, reject) {
+              promises.push(new _promise.default(function (resolve, reject) {
                 var script = document.createElement('script');
                 script.async = 1;
                 script.src = filename;
+
                 script.onload = function () {
                   return resolve(filename);
                 };
+
                 script.onerror = function () {
                   return reject(filename);
                 };
+
                 document.body.appendChild(script);
               }));
             });
-
             css.forEach(function (filename) {
               var link = document.createElement('link');
               link.rel = 'stylesheet';
               link.href = filename;
               document.head.appendChild(link);
             });
-
             _context.prev = 4;
             _context.next = 7;
-            return Promise.all(promises);
+            return _promise.default.all(promises);
 
           case 7:
-
             if (window[moduleName].default.ReduxReducers) {
               (0, _store.injectAsyncReducer)(store, moduleName, window[moduleName].default.ReduxReducers());
             }
+
             dispatch(SuccessLoadingModule(moduleName));
             _context.next = 15;
             break;
 
           case 11:
             _context.prev = 11;
-            _context.t0 = _context['catch'](4);
-
-            (0, _warning2.default)(false, 'Unable to load module ' + moduleName, _context.t0);
+            _context.t0 = _context["catch"](4);
+            (0, _warning.default)(false, "Unable to load module ".concat(moduleName), _context.t0);
             dispatch(ErrorLoadingModule(moduleName));
 
           case 15:
-          case 'end':
+          case "end":
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[4, 11]]);
+    }, _callee, this, [[4, 11]]);
   }));
 
   return function LoadModuleAssets(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
-
 /**
  * Load module if it is not loaded already.
  *
@@ -426,24 +436,30 @@ var LoadModuleAssets = function () {
  * @returns {Function}
  * @constructor
  */
-var LoadModule = exports.LoadModule = function LoadModule(moduleName, store) {
+
+
+var LoadModule = function LoadModule(moduleName, store) {
   return function (dispatch, getState) {
     if (Utils.shouldLoadModule(getState(), moduleName) && Utils.canLoadModule(moduleName)) {
       dispatch(StartLoadingModule(moduleName));
       return LoadModuleAssets(dispatch, moduleName, store);
     }
 
-    (0, _warning2.default)(false, 'Will not load module ' + moduleName);
+    (0, _warning.default)(false, "Will not load module ".concat(moduleName));
   };
 };
 
+exports.LoadModule = LoadModule;
+
 /***/ }),
 
-/***/ 301:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var _interopRequireDefault = __webpack_require__(39);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -451,37 +467,25 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = configureStore;
 exports.injectAsyncReducer = injectAsyncReducer;
 
-var _redux = __webpack_require__(22);
+var _redux = __webpack_require__(15);
 
-var _reducers = __webpack_require__(529);
+var _reducers = _interopRequireDefault(__webpack_require__(504));
 
-var _reducers2 = _interopRequireDefault(_reducers);
+var _reduxThunk = _interopRequireDefault(__webpack_require__(267));
 
-var _reduxThunk = __webpack_require__(302);
+var _reduxDevtoolsExtension = __webpack_require__(480);
 
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+var _connectedReactRouter = __webpack_require__(256);
 
-var _reduxDevtoolsExtension = __webpack_require__(528);
+var _history = _interopRequireDefault(__webpack_require__(255));
 
-var _connectedReactRouter = __webpack_require__(298);
-
-var _history = __webpack_require__(297);
-
-var _history2 = _interopRequireDefault(_history);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ReactRouterMiddleware = (0, _connectedReactRouter.routerMiddleware)(_history2.default);
-var composeEnhancers = (0, _reduxDevtoolsExtension.composeWithDevTools)({
-  // options like actionSanitizer, stateSanitizer
+var ReactRouterMiddleware = (0, _connectedReactRouter.routerMiddleware)(_history.default);
+var composeEnhancers = (0, _reduxDevtoolsExtension.composeWithDevTools)({// options like actionSanitizer, stateSanitizer
 });
 
 function configureStore() {
   var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-
-  var store = (0, _redux.createStore)((0, _connectedReactRouter.connectRouter)(_history2.default)((0, _reducers2.default)()), initialState, composeEnhancers((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk2.default)
-  // applyMiddleware(logger),
+  var store = (0, _redux.createStore)((0, _connectedReactRouter.connectRouter)(_history.default)((0, _reducers.default)()), initialState, composeEnhancers((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk.default) // applyMiddleware(logger),
   ));
   store.asyncReducers = {};
   return store;
@@ -490,8 +494,237 @@ function configureStore() {
 function injectAsyncReducer(store, name, asyncReducer) {
   // console.log('injecting async reducer', store, name, asyncReducer);
   store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer((0, _reducers2.default)(store.asyncReducers));
+  store.replaceReducer((0, _reducers.default)(store.asyncReducers));
 }
+
+/***/ }),
+
+/***/ 450:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(39);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(112));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(111));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(110));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(106));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(105));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(232));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(86));
+
+var _react = _interopRequireDefault(__webpack_require__(2));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(0));
+
+var ErrorBoundary =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(ErrorBoundary, _React$Component);
+
+  function ErrorBoundary(props) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, ErrorBoundary);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ErrorBoundary).call(this, props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "state", {
+      hasError: false
+    });
+    return _this;
+  }
+
+  (0, _createClass2.default)(ErrorBoundary, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      this.setState({
+        hasError: true,
+        error: error,
+        info: info
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.hasError) {
+        return _react.default.createElement("div", {
+          className: "AdminPanel__error"
+        }, _react.default.createElement("h1", null, "Error happened"), _react.default.createElement("h2", null, this.state.error.toString()), _react.default.createElement("pre", null, this.state.info.componentStack));
+      }
+
+      return this.props.children;
+    }
+  }]);
+  return ErrorBoundary;
+}(_react.default.Component);
+
+ErrorBoundary.propTypes = {
+  children: _propTypes.default.any
+};
+var _default = ErrorBoundary;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 451:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(39);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(112));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(111));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(110));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(106));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(105));
+
+var _react = _interopRequireDefault(__webpack_require__(2));
+
+var RouteNotFound =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(RouteNotFound, _React$Component);
+
+  function RouteNotFound(props) {
+    (0, _classCallCheck2.default)(this, RouteNotFound);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(RouteNotFound).call(this, props));
+  }
+
+  (0, _createClass2.default)(RouteNotFound, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("h1", null, "Not found");
+    }
+  }]);
+  return RouteNotFound;
+}(_react.default.Component);
+
+var _default = RouteNotFound;
+exports.default = _default;
+
+/***/ }),
+
+/***/ 458:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(39);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(457));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(452));
+
+var _keys = _interopRequireDefault(__webpack_require__(162));
+
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(112));
+
+var _createClass2 = _interopRequireDefault(__webpack_require__(111));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(110));
+
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(106));
+
+var _inherits2 = _interopRequireDefault(__webpack_require__(105));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(232));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(86));
+
+var _react = _interopRequireDefault(__webpack_require__(2));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(0));
+
+var _Utils = __webpack_require__(257);
+
+var _LoadableComponent = _interopRequireDefault(__webpack_require__(254));
+
+var _RouteNotFound = _interopRequireDefault(__webpack_require__(451));
+
+var _ErrorBoundary = _interopRequireDefault(__webpack_require__(450));
+
+var _reactRouter = __webpack_require__(115);
+
+var _reactRouterDom = __webpack_require__(252);
+
+var App =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(App, _React$Component);
+
+  function App(props) {
+    var _this;
+
+    (0, _classCallCheck2.default)(this, App);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(App).call(this, props));
+    (0, _defineProperty2.default)((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), "routes", []);
+    var routeIndex = 0;
+    (0, _keys.default)(_Utils.AvailableModules).forEach(function (moduleName) {
+      var module = _Utils.AvailableModules[moduleName];
+      module.routes.forEach(function (routeItem) {
+        var route = routeItem.route,
+            component = routeItem.component,
+            props = (0, _objectWithoutProperties2.default)(routeItem, ["route", "component"]);
+
+        _this.routes.push(_react.default.createElement(_reactRouterDom.Route, (0, _extends2.default)({
+          path: route,
+          component: (0, _LoadableComponent.default)(moduleName, component, _this.props.store),
+          key: routeIndex++
+        }, props)));
+      });
+    }); // routes
+
+    return _this;
+  }
+
+  (0, _createClass2.default)(App, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement(_ErrorBoundary.default, null, _react.default.createElement(_reactRouter.Switch, null, this.routes, _react.default.createElement(_reactRouterDom.Route, {
+        component: _RouteNotFound.default
+      }))), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/installer/"
+      }, "Run installer"));
+    }
+  }]);
+  return App;
+}(_react.default.Component);
+
+(0, _defineProperty2.default)(App, "propTypes", {
+  history: _propTypes.default.object.isRequired,
+  store: _propTypes.default.object.isRequired
+});
+var _default = App;
+exports.default = _default;
 
 /***/ }),
 
@@ -501,296 +734,37 @@ function injectAsyncReducer(store, name, asyncReducer) {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(0);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ErrorBoundary = function (_React$Component) {
-  _inherits(ErrorBoundary, _React$Component);
-
-  function ErrorBoundary(props) {
-    _classCallCheck(this, ErrorBoundary);
-
-    var _this = _possibleConstructorReturn(this, (ErrorBoundary.__proto__ || Object.getPrototypeOf(ErrorBoundary)).call(this, props));
-
-    _this.state = {
-      hasError: false
-    };
-    return _this;
-  }
-
-  _createClass(ErrorBoundary, [{
-    key: 'componentDidCatch',
-    value: function componentDidCatch(error, info) {
-      this.setState({
-        hasError: true,
-        error: error,
-        info: info
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      if (this.state.hasError) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'AdminPanel__error' },
-          _react2.default.createElement(
-            'h1',
-            null,
-            'Error happened'
-          ),
-          _react2.default.createElement(
-            'h2',
-            null,
-            this.state.error.toString()
-          ),
-          _react2.default.createElement(
-            'pre',
-            null,
-            this.state.info.componentStack
-          )
-        );
-      }
-      return this.props.children;
-    }
-  }]);
-
-  return ErrorBoundary;
-}(_react2.default.Component);
-
-ErrorBoundary.propTypes = {
-  children: _propTypes2.default.any
-};
-
-exports.default = ErrorBoundary;
-
-/***/ }),
-
-/***/ 505:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+var _interopRequireDefault = __webpack_require__(39);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = createReducer;
+exports.LoadedModules = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(86));
 
-var _react = __webpack_require__(2);
+var _objectSpread5 = _interopRequireDefault(__webpack_require__(503));
 
-var _react2 = _interopRequireDefault(_react);
+var _redux = __webpack_require__(15);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactRouterRedux = __webpack_require__(448);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _reduxForm = __webpack_require__(253);
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+var _reduxAct = __webpack_require__(163);
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RouteNotFound = function (_React$Component) {
-  _inherits(RouteNotFound, _React$Component);
-
-  function RouteNotFound(props) {
-    _classCallCheck(this, RouteNotFound);
-
-    return _possibleConstructorReturn(this, (RouteNotFound.__proto__ || Object.getPrototypeOf(RouteNotFound)).call(this, props));
-  }
-
-  _createClass(RouteNotFound, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'h1',
-        null,
-        'Not found'
-      );
-    }
-  }]);
-
-  return RouteNotFound;
-}(_react2.default.Component);
-
-exports.default = RouteNotFound;
-
-/***/ }),
-
-/***/ 506:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(0);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Utils = __webpack_require__(299);
-
-var _LoadableComponent = __webpack_require__(296);
-
-var _LoadableComponent2 = _interopRequireDefault(_LoadableComponent);
-
-var _RouteNotFound = __webpack_require__(505);
-
-var _RouteNotFound2 = _interopRequireDefault(_RouteNotFound);
-
-var _ErrorBoundary = __webpack_require__(504);
-
-var _ErrorBoundary2 = _interopRequireDefault(_ErrorBoundary);
-
-var _reactRouter = __webpack_require__(140);
-
-var _reactRouterDom = __webpack_require__(294);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  function App(props) {
-    _classCallCheck(this, App);
-
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-    _this.routes = [];
-
-
-    var routeIndex = 0;
-
-    Object.keys(_Utils.AvailableModules).forEach(function (moduleName) {
-      var module = _Utils.AvailableModules[moduleName];
-      module.routes.forEach(function (routeItem) {
-        var route = routeItem.route,
-            component = routeItem.component,
-            props = _objectWithoutProperties(routeItem, ['route', 'component']);
-
-        _this.routes.push(_react2.default.createElement(_reactRouterDom.Route, _extends({
-          path: route,
-          component: (0, _LoadableComponent2.default)(moduleName, component, _this.props.store),
-          key: routeIndex++
-        }, props)));
-      });
-    }); // routes
-    return _this;
-  }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _ErrorBoundary2.default,
-          null,
-          _react2.default.createElement(
-            _reactRouter.Switch,
-            null,
-            this.routes,
-            _react2.default.createElement(_reactRouterDom.Route, { component: _RouteNotFound2.default })
-          )
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/installer/' },
-          'Run installer'
-        )
-      );
-    }
-  }]);
-
-  return App;
-}(_react2.default.Component);
-
-App.propTypes = {
-  history: _propTypes2.default.object.isRequired,
-  store: _propTypes2.default.object.isRequired
-};
-exports.default = App;
-
-/***/ }),
-
-/***/ 529:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.LoadedModules = undefined;
+var _actions = __webpack_require__(264);
 
 var _createActReducer;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-                                                                                                                                                                                                                                                                   * @see https://stackoverflow.com/questions/32968016/how-to-dynamically-load-reducers-for-code-splitting-in-a-redux-application
-                                                                                                                                                                                                                                                                   */
-
-
-exports.default = createReducer;
-
-var _redux = __webpack_require__(22);
-
-var _reactRouterRedux = __webpack_require__(502);
-
-var _reduxForm = __webpack_require__(295);
-
-var _reduxAct = __webpack_require__(194);
-
-var _actions = __webpack_require__(300);
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 // Reducer for loading modules
-var LoadedModules = (0, _reduxAct.createReducer)((_createActReducer = {}, _defineProperty(_createActReducer, _actions.StartLoadingModule, function (state, moduleName) {
-  return _extends({}, state, _defineProperty({}, moduleName, false));
-}), _defineProperty(_createActReducer, _actions.ErrorLoadingModule, function (state, moduleName) {
-  return _extends({}, state, _defineProperty({}, moduleName, 'error'));
-}), _defineProperty(_createActReducer, _actions.SuccessLoadingModule, function (state, moduleName) {
-  return _extends({}, state, _defineProperty({}, moduleName, true));
+var LoadedModules = (0, _reduxAct.createReducer)((_createActReducer = {}, (0, _defineProperty2.default)(_createActReducer, _actions.StartLoadingModule, function (state, moduleName) {
+  return (0, _objectSpread5.default)({}, state, (0, _defineProperty2.default)({}, moduleName, false));
+}), (0, _defineProperty2.default)(_createActReducer, _actions.ErrorLoadingModule, function (state, moduleName) {
+  return (0, _objectSpread5.default)({}, state, (0, _defineProperty2.default)({}, moduleName, 'error'));
+}), (0, _defineProperty2.default)(_createActReducer, _actions.SuccessLoadingModule, function (state, moduleName) {
+  return (0, _objectSpread5.default)({}, state, (0, _defineProperty2.default)({}, moduleName, true));
 }), _createActReducer), {
   /**
    * Here will be object where key is moduleName and value is:
@@ -800,13 +774,11 @@ var LoadedModules = (0, _reduxAct.createReducer)((_createActReducer = {}, _defin
    * - 'error' - module tried to load but failed, can try to load again
    */
 });
-
 exports.LoadedModules = LoadedModules;
 
 // import {ApiTableReducer} from './ApiTable/reducers';
-
 function createReducer(asyncReducers) {
-  return (0, _redux.combineReducers)(_extends({
+  return (0, _redux.combineReducers)((0, _objectSpread5.default)({
     routing: _reactRouterRedux.routerReducer,
     // apiTable: ApiTableReducer,
     LoadedModules: LoadedModules,
@@ -816,7 +788,7 @@ function createReducer(asyncReducers) {
 
 /***/ }),
 
-/***/ 933:
+/***/ 910:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -825,199 +797,213 @@ function createReducer(asyncReducers) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _styles = __webpack_require__(47);
+var _styles = __webpack_require__(32);
 
 // import {deepOrange} from 'material-ui/colors';
-
-exports.default = (0, _styles.createMuiTheme)({
-  palette: {
-    // primary: deepOrange
+var _default = (0, _styles.createMuiTheme)({
+  palette: {// primary: deepOrange
   }
 });
 
+exports.default = _default;
+
 /***/ }),
 
-/***/ 955:
+/***/ 932:
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
 
-/***/ 958:
+/***/ 968:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+var _interopRequireWildcard = __webpack_require__(439);
+
+var _interopRequireDefault = __webpack_require__(39);
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.i18next = exports.ReduxFormYup = exports.yup = exports.LoadableComponent = exports.PropTypes = exports.ReduxThunk = exports.ReduxAct = exports.ReduxForm = exports.ReactRedux = exports.Redux = exports.RouterHistory = exports.classNames = exports.MaterialUI = exports.CRM = exports.ReactRouterExport = exports.ReactDOM = exports.React = undefined;
+Object.defineProperty(exports, "ReactDOM", {
+  enumerable: true,
+  get: function get() {
+    return _reactDom.default;
+  }
+});
+Object.defineProperty(exports, "React", {
+  enumerable: true,
+  get: function get() {
+    return _react.default;
+  }
+});
+Object.defineProperty(exports, "classNames", {
+  enumerable: true,
+  get: function get() {
+    return _classnames.default;
+  }
+});
+Object.defineProperty(exports, "yup", {
+  enumerable: true,
+  get: function get() {
+    return _yup.default;
+  }
+});
+Object.defineProperty(exports, "ReduxThunk", {
+  enumerable: true,
+  get: function get() {
+    return _reduxThunk.default;
+  }
+});
+Object.defineProperty(exports, "PropTypes", {
+  enumerable: true,
+  get: function get() {
+    return _propTypes.default;
+  }
+});
+Object.defineProperty(exports, "LoadableComponent", {
+  enumerable: true,
+  get: function get() {
+    return _LoadableComponent.default;
+  }
+});
+Object.defineProperty(exports, "i18next", {
+  enumerable: true,
+  get: function get() {
+    return _i18next.default;
+  }
+});
+exports.ReduxAct = exports.ReduxFormYup = exports.ReduxForm = exports.MaterialUI = exports.ReactRedux = exports.Redux = exports.ReactRouterExport = exports.RouterHistory = exports.CRM = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _classCallCheck2 = _interopRequireDefault(__webpack_require__(112));
 
-__webpack_require__(957);
+var _createClass2 = _interopRequireDefault(__webpack_require__(111));
 
-__webpack_require__(955);
+var _possibleConstructorReturn2 = _interopRequireDefault(__webpack_require__(110));
 
-var _reactDom = __webpack_require__(33);
+var _getPrototypeOf2 = _interopRequireDefault(__webpack_require__(106));
 
-var _reactDom2 = _interopRequireDefault(_reactDom);
+var _inherits2 = _interopRequireDefault(__webpack_require__(105));
 
-var _reactRouterDom = __webpack_require__(294);
+__webpack_require__(934);
 
-var ReactRouterExport = _interopRequireWildcard(_reactRouterDom);
+__webpack_require__(932);
 
-var _react = __webpack_require__(2);
+var _reactDom = _interopRequireDefault(__webpack_require__(24));
 
-var _react2 = _interopRequireDefault(_react);
+var ReactRouterExport = _interopRequireWildcard(__webpack_require__(252));
 
-var _classnames = __webpack_require__(7);
+exports.ReactRouterExport = ReactRouterExport;
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _react = _interopRequireDefault(__webpack_require__(2));
 
-var _redux = __webpack_require__(22);
+var _classnames = _interopRequireDefault(__webpack_require__(6));
 
-var Redux = _interopRequireWildcard(_redux);
+var Redux = _interopRequireWildcard(__webpack_require__(15));
 
-var _reactRedux = __webpack_require__(32);
+exports.Redux = Redux;
 
-var ReactRedux = _interopRequireWildcard(_reactRedux);
+var ReactRedux = _interopRequireWildcard(__webpack_require__(22));
 
-var _MuiTheme = __webpack_require__(933);
+exports.ReactRedux = ReactRedux;
 
-var _MuiTheme2 = _interopRequireDefault(_MuiTheme);
+var _MuiTheme = _interopRequireDefault(__webpack_require__(910));
 
-var _core = __webpack_require__(894);
+var MaterialUI = _interopRequireWildcard(__webpack_require__(870));
 
-var MaterialUI = _interopRequireWildcard(_core);
+exports.MaterialUI = MaterialUI;
 
-__webpack_require__(697);
+__webpack_require__(674);
 
-var _JssProvider = __webpack_require__(696);
+var _JssProvider = _interopRequireDefault(__webpack_require__(673));
 
-var _JssProvider2 = _interopRequireDefault(_JssProvider);
+var _styles = __webpack_require__(32);
 
-var _styles = __webpack_require__(47);
+var ReduxForm = _interopRequireWildcard(__webpack_require__(253));
 
-var _reduxForm = __webpack_require__(295);
+exports.ReduxForm = ReduxForm;
 
-var ReduxForm = _interopRequireWildcard(_reduxForm);
+var _yup = _interopRequireDefault(__webpack_require__(640));
 
-var _yup = __webpack_require__(665);
+var ReduxFormYup = _interopRequireWildcard(__webpack_require__(512));
 
-var _yup2 = _interopRequireDefault(_yup);
+exports.ReduxFormYup = ReduxFormYup;
 
-var _reduxFormYup = __webpack_require__(537);
+var ReduxAct = _interopRequireWildcard(__webpack_require__(163));
 
-var ReduxFormYup = _interopRequireWildcard(_reduxFormYup);
+exports.ReduxAct = ReduxAct;
 
-var _reduxAct = __webpack_require__(194);
+var _reduxThunk = _interopRequireDefault(__webpack_require__(267));
 
-var ReduxAct = _interopRequireWildcard(_reduxAct);
+var _propTypes = _interopRequireDefault(__webpack_require__(0));
 
-var _reduxThunk = __webpack_require__(302);
+var _store = _interopRequireDefault(__webpack_require__(266));
 
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+var _LoadableComponent = _interopRequireDefault(__webpack_require__(254));
 
-var _propTypes = __webpack_require__(0);
+var _connectedReactRouter = __webpack_require__(256);
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _history = _interopRequireDefault(__webpack_require__(255));
 
-var _store = __webpack_require__(301);
+var _i18next = _interopRequireDefault(__webpack_require__(449));
 
-var _store2 = _interopRequireDefault(_store);
+var _i18nextXhrBackend = _interopRequireDefault(__webpack_require__(472));
 
-var _LoadableComponent = __webpack_require__(296);
+var _i18nextBrowserLanguagedetector = _interopRequireDefault(__webpack_require__(468));
 
-var _LoadableComponent2 = _interopRequireDefault(_LoadableComponent);
-
-var _connectedReactRouter = __webpack_require__(298);
-
-var _history = __webpack_require__(297);
-
-var _history2 = _interopRequireDefault(_history);
-
-var _i18next = __webpack_require__(503);
-
-var _i18next2 = _interopRequireDefault(_i18next);
-
-var _i18nextXhrBackend = __webpack_require__(520);
-
-var _i18nextXhrBackend2 = _interopRequireDefault(_i18nextXhrBackend);
-
-var _i18nextBrowserLanguagedetector = __webpack_require__(516);
-
-var _i18nextBrowserLanguagedetector2 = _interopRequireDefault(_i18nextBrowserLanguagedetector);
-
-var _App = __webpack_require__(506);
-
-var _App2 = _interopRequireDefault(_App);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _App = _interopRequireDefault(__webpack_require__(458));
 
 // Build the middleware for intercepting and dispatching navigation actions
-
 var Provider = ReactRedux.Provider;
 var MuiThemeProvider = MaterialUI.MuiThemeProvider;
-
 
 if (window.DotPlantAdminPanel__ReduxReducers === undefined) {
   window.DotPlantAdminPanel__ReduxReducers = {};
 }
 
-var store = (0, _store2.default)({});
+var store = (0, _store.default)({});
 
-var CRM = function (_React$Component) {
-  _inherits(CRM, _React$Component);
+var CRM =
+/*#__PURE__*/
+function (_React$Component) {
+  (0, _inherits2.default)(CRM, _React$Component);
 
   function CRM() {
-    _classCallCheck(this, CRM);
-
-    return _possibleConstructorReturn(this, (CRM.__proto__ || Object.getPrototypeOf(CRM)).apply(this, arguments));
+    (0, _classCallCheck2.default)(this, CRM);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(CRM).apply(this, arguments));
   }
 
-  _createClass(CRM, [{
-    key: 'render',
+  (0, _createClass2.default)(CRM, [{
+    key: "render",
     value: function render() {
-      return _react2.default.createElement(
-        Provider,
-        { store: store },
-        _react2.default.createElement(
-          _connectedReactRouter.ConnectedRouter,
-          { history: _history2.default },
-          _react2.default.createElement(
-            _JssProvider2.default,
-            { generateClassName: (0, _styles.createGenerateClassName)() },
-            _react2.default.createElement(
-              MuiThemeProvider,
-              { theme: _MuiTheme2.default },
-              _react2.default.createElement(_App2.default, { history: _history2.default, store: store })
-            )
-          )
-        )
-      );
+      return _react.default.createElement(Provider, {
+        store: store
+      }, _react.default.createElement(_connectedReactRouter.ConnectedRouter, {
+        history: _history.default
+      }, _react.default.createElement(_JssProvider.default, {
+        generateClassName: (0, _styles.createGenerateClassName)()
+      }, _react.default.createElement(MuiThemeProvider, {
+        theme: _MuiTheme.default
+      }, _react.default.createElement(_App.default, {
+        history: _history.default,
+        store: store
+      })))));
     }
   }]);
-
   return CRM;
-}(_react2.default.Component);
-
-// Add the reducer to your store on the `router` key
+}(_react.default.Component); // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
 
 
-_i18next2.default.use(_i18nextBrowserLanguagedetector2.default).use(_i18nextXhrBackend2.default).init({
+exports.CRM = CRM;
+
+_i18next.default.use(_i18nextBrowserLanguagedetector.default).use(_i18nextXhrBackend.default).init({
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
     debug: true
@@ -1025,35 +1011,16 @@ _i18next2.default.use(_i18nextBrowserLanguagedetector2.default).use(_i18nextXhrB
   debug: true,
   defaultNS: 'frontend',
   ns: 'frontend',
-  fallbackLng: window.Yii3CRM__defaultLanguage
-  // preload: [window.Yii3CRM__defaultLanguage]
-}, function () {
+  fallbackLng: window.Yii3CRM__defaultLanguage // preload: [window.Yii3CRM__defaultLanguage]
 
+}, function () {
   if (document.getElementById('CRM__root')) {
-    _reactDom2.default.render(_react2.default.createElement(CRM, null), document.getElementById('CRM__root'));
+    _reactDom.default.render(_react.default.createElement(CRM, null), document.getElementById('CRM__root'));
   }
-  store && true;
 });
 
-var RouterHistory = _history2.default;
-
-exports.React = _react2.default;
-exports.ReactDOM = _reactDom2.default;
-exports.ReactRouterExport = ReactRouterExport;
-exports.CRM = CRM;
-exports.MaterialUI = MaterialUI;
-exports.classNames = _classnames2.default;
+var RouterHistory = _history.default;
 exports.RouterHistory = RouterHistory;
-exports.Redux = Redux;
-exports.ReactRedux = ReactRedux;
-exports.ReduxForm = ReduxForm;
-exports.ReduxAct = ReduxAct;
-exports.ReduxThunk = _reduxThunk2.default;
-exports.PropTypes = _propTypes2.default;
-exports.LoadableComponent = _LoadableComponent2.default;
-exports.yup = _yup2.default;
-exports.ReduxFormYup = ReduxFormYup;
-exports.i18next = _i18next2.default;
 
 /***/ })
 

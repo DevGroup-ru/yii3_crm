@@ -53,50 +53,7 @@ module.exports = env => {
   const removeEmpty = array => array.filter(p => !!p);
   return {
     entry: {
-      'babel-polyfill': 'babel-polyfill',
       app: './app/index.js',
-      // vendor: [
-      //
-      //   'babel-polyfill',
-      //   'i18next',
-      //   'i18next-xhr-backend',
-      //   'react',
-      //   'react-dom',
-      //   'react-router-dom',
-      //   'react-router-redux',
-      //   'connected-react-router',
-      //   'debounce',
-      //   'deepmerge',
-      //   'dom-helpers',
-      //   'popper.js',
-      //   'rafl',
-      //   'react-event-listener',
-      //   'react-transition-group',
-      //   'scroll',
-      //   'keycode',
-      //   'hoist-non-react-statics',
-      //   'global',
-      //   'fbjs',
-      //   // 'react-select2-wrapper',
-      //   'react-svg',
-      //   'redux',
-      //   'redux-devtools-extension',
-      //   'redux-form',
-      //   'redux-thunk',
-      //   'redux-act',
-      //   'jss',
-      //   'query-string',
-      //   'react-jss',
-      //   'react-redux',
-      //   'prop-types',
-      //   'classnames',
-      //   '@material-ui/core',
-      //
-      //   // 'normalize.css/normalize.css',
-      //   'whatwg-fetch',
-      //   'redux-form-yup',
-      //   'yup',
-      // ]
     },
     output: {
       path: path.resolve(__dirname, ENV_PROD ? 'dist' : 'dist-dev'),
@@ -147,7 +104,17 @@ module.exports = env => {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+              ],
+              plugins: [
+                '@babel/plugin-transform-runtime',
+                '@babel/plugin-proposal-class-properties',
+              ]
+            }
           }
         },
         {
@@ -190,14 +157,26 @@ module.exports = env => {
 
     devtool: ENV_PROD ? undefined : 'source-map',
     optimization: {
+      // splitChunks: {
+      //   cacheGroups: {
+      //     commons: {
+      //       test: /[\\/]node_modules[\\/]/,
+      //       name: 'vendor',
+      //       chunks: 'all'
+      //     }
+      //   }
+      // },
       splitChunks: {
         cacheGroups: {
+          default: false,
           commons: {
+
             test: /[\\/]node_modules[\\/]/,
+            chunks: 'all',
             name: 'vendor',
-            chunks: 'all'
-          }
-        }
+            // enforce: true,
+          },
+        },
       },
 
       minimizer: ENV_PROD ? [

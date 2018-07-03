@@ -16,12 +16,10 @@ class AppBundle extends AssetBundle
         $this->css = YII_ENV_DEV ? ['app.bundle.css','0.css'] : ['app.bundle.min.css', '0.min.css'];
         $this->js = YII_ENV_DEV
             ? [
-                'babel-polyfill.bundle.js',
                 'vendor.bundle.js',
                 'app.bundle.js',
             ]
             : [
-                'babel-polyfill.bundle.min.js',
                 'vendor.bundle.min.js',
                 'app.bundle.min.js',
             ];
