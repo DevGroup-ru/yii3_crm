@@ -52,6 +52,7 @@ module.exports = env => {
   const ifProd = plugin => ENV_PROD ? plugin : undefined;
   const removeEmpty = array => array.filter(p => !!p);
   return {
+    mode: ENV_PROD ? 'production': 'development',
     entry: {
       app: './app/index.js',
     },
