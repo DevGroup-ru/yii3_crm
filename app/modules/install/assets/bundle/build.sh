@@ -1,1 +1,1 @@
-/Users/bethrezen/projects/yii3_crm/app/assets/bundle/build.sh
+../../../../assets/bundle/build.sh
