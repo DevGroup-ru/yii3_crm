@@ -27,8 +27,8 @@ import history from './history';
 import i18next from 'i18next';
 import XHR from 'i18next-xhr-backend';
 import LngDetector from 'i18next-browser-languagedetector';
-
 import App from './App';
+import DevTools from './DevTools';
 // Build the middleware for intercepting and dispatching navigation actions
 
 const Provider = ReactRedux.Provider;
@@ -51,6 +51,7 @@ class CRM extends React.Component {
           <JssProvider generateClassName={createGenerateClassName()}>
             <MuiThemeProvider theme={MuiTheme}>
               <App history={history} store={store} />
+              <DevTools />
             </MuiThemeProvider>
           </JssProvider>
         </ConnectedRouter>

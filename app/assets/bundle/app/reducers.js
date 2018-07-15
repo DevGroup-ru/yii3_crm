@@ -34,13 +34,18 @@ export {
 // import {ApiTableReducer} from './ApiTable/reducers';
 
 export default function createReducer(asyncReducers = {}) {
+  console.log('createReducer', asyncReducers);
   const reducers = {
     router: routerReducer,
     // apiTable: ApiTableReducer,
     LoadedModules,
     form,
+    bar: (state={}, ...args) => {
+      console.log('bar', state, args);
+      return state;
+    },
     ...asyncReducers
   };
-  console.log('!reducers', reducers);
-  return combineReducers(reducers, {});
+  console.log(reducers);
+  return combineReducers(reducers);
 }

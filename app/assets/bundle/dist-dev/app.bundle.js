@@ -259,6 +259,50 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./app/DevTools.js":
+/*!*************************!*\
+  !*** ./app/DevTools.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _reduxDevtools = __webpack_require__(/*! redux-devtools */ "./node_modules/redux-devtools/lib/index.js");
+
+var _reduxDevtoolsLogMonitor = _interopRequireDefault(__webpack_require__(/*! redux-devtools-log-monitor */ "./node_modules/redux-devtools-log-monitor/lib/index.js"));
+
+var _reduxDevtoolsDockMonitor = _interopRequireDefault(__webpack_require__(/*! redux-devtools-dock-monitor */ "./node_modules/redux-devtools-dock-monitor/lib/index.js"));
+
+// Exported from redux-devtools
+// Monitors are separate packages, and you can make a custom one
+// createDevTools takes a monitor and produces a DevTools component
+var DevTools = (0, _reduxDevtools.createDevTools)( // Monitors are individually adjustable with props.
+// Consult their repositories to learn about those props.
+// Here, we put LogMonitor inside a DockMonitor.
+// Note: DockMonitor is visible by default.
+_react.default.createElement(_reduxDevtoolsDockMonitor.default, {
+  toggleVisibilityKey: "ctrl-h",
+  changePositionKey: "ctrl-q",
+  defaultIsVisible: true
+}, _react.default.createElement(_reduxDevtoolsLogMonitor.default, {
+  theme: "tomorrow"
+})));
+var _default = DevTools;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./app/ErrorBoundary.js":
 /*!******************************!*\
   !*** ./app/ErrorBoundary.js ***!
@@ -893,6 +937,8 @@ var _i18nextBrowserLanguagedetector = _interopRequireDefault(__webpack_require__
 
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "./app/App.js"));
 
+var _DevTools = _interopRequireDefault(__webpack_require__(/*! ./DevTools */ "./app/DevTools.js"));
+
 // Build the middleware for intercepting and dispatching navigation actions
 var Provider = ReactRedux.Provider;
 var MuiThemeProvider = MaterialUI.MuiThemeProvider;
@@ -927,7 +973,7 @@ function (_React$Component) {
       }, _react.default.createElement(_App.default, {
         history: _history.default,
         store: store
-      })))));
+      }), _react.default.createElement(_DevTools.default, null)))));
     }
   }]);
   return CRM;
@@ -1013,14 +1059,25 @@ exports.LoadedModules = LoadedModules;
 // import {ApiTableReducer} from './ApiTable/reducers';
 function createReducer() {
   var asyncReducers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  console.log('createReducer', asyncReducers);
   var reducers = (0, _objectSpread5.default)({
     router: _reactRouterRedux.routerReducer,
     // apiTable: ApiTableReducer,
     LoadedModules: LoadedModules,
-    form: _reduxForm.reducer
+    form: _reduxForm.reducer,
+    bar: function bar() {
+      var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      console.log('bar', state, args);
+      return state;
+    }
   }, asyncReducers);
-  console.log('!reducers', reducers);
-  return (0, _redux.combineReducers)(reducers, {});
+  console.log(reducers);
+  return (0, _redux.combineReducers)(reducers);
 }
 
 /***/ }),
@@ -1042,6 +1099,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = configureStore;
 exports.injectAsyncReducer = injectAsyncReducer;
+exports.loggerMiddleware = void 0;
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
@@ -1055,13 +1113,41 @@ var _connectedReactRouter = __webpack_require__(/*! connected-react-router */ ".
 
 var _history = _interopRequireDefault(__webpack_require__(/*! ./history */ "./app/history.js"));
 
+var _DevTools = _interopRequireDefault(__webpack_require__(/*! ./DevTools */ "./app/DevTools.js"));
+
 var ReactRouterMiddleware = (0, _connectedReactRouter.routerMiddleware)(_history.default);
 var composeEnhancers = (0, _reduxDevtoolsExtension.composeWithDevTools)({// options like actionSanitizer, stateSanitizer
 });
 
+var loggerMiddleware = function loggerMiddleware(store) {
+  return function (next) {
+    return function (action) {
+      console.group(action.type); // eslint-disable-line no-console
+
+      console.info('dispatching', action); // eslint-disable-line no-console
+
+      var result = next(action); // OMIT toJS if you're not using immutable
+
+      console.log('next state', store.getState()); // eslint-disable-line no-console
+
+      console.groupEnd(action.type); // eslint-disable-line no-console
+
+      return result;
+    };
+  };
+};
+
+exports.loggerMiddleware = loggerMiddleware;
+
+var monitorReducer = function monitorReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  return state;
+};
+
 function configureStore() {
   var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var store = (0, _redux.createStore)((0, _connectedReactRouter.connectRouter)(_history.default)((0, _reducers.default)()), initialState, composeEnhancers((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk.default) // applyMiddleware(logger),
+  var store = (0, _redux.createStore)((0, _connectedReactRouter.connectRouter)(_history.default)((0, _reducers.default)()), initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk.default), (0, _redux.applyMiddleware)(loggerMiddleware), _DevTools.default.instrument() // instrument(monitorReducer, { maxAge: 50 })
   ));
   store.asyncReducers = {};
   return store;
@@ -1069,8 +1155,7 @@ function configureStore() {
 
 function injectAsyncReducer(store, name, asyncReducer) {
   store.asyncReducers[name] = asyncReducer;
-  var reducers = (0, _reducers.default)(store.asyncReducers);
-  console.log('reducers', reducers);
+  var reducers = (0, _connectedReactRouter.connectRouter)(_history.default)((0, _reducers.default)(store.asyncReducers));
   store.replaceReducer(reducers);
 }
 

@@ -1,5 +1,4 @@
 import './index.scss';
-import 'babel-polyfill';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
@@ -7,6 +6,8 @@ import i18next from 'i18next';
 import {ConnectedWizard} from './Wizard';
 import reducers from './reducers';
 import {Step1} from './Step1';
+import {Step2} from './Step2';
+
 
 const styles = {
   root: {
@@ -25,7 +26,6 @@ function SimpleAppBar(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-
     </div>
   );
 }
@@ -50,7 +50,8 @@ class Installer extends React.Component {
       <div className="CRM__installer">
         <InstallerBar/>
         <ConnectedWizard steps={[
-          Step1
+          Step1,
+          Step2,
         ]}/>
       </div>
     );

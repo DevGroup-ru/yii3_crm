@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import i18next from 'i18next';
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
-import {InstallationStepStart} from './actions';
+import {InstallationStepStart, InstallationEnd} from './actions';
 
 const styles = theme => ({
   root: {
@@ -35,10 +35,11 @@ class Wizard extends React.Component {
       PropTypes.func.isRequired
     ).isRequired,
     classes: PropTypes.object.isRequired,
-    NextStep: PropTypes.func.isRequired,
+
   };
 
   stepsComponents = {};
+  stepsInstances = {};
 
   constructor(props) {
     super(props);
@@ -54,8 +55,13 @@ class Wizard extends React.Component {
       );
       i++;
     });
-    props.NextStep(1);
+
   }
+
+  nextStep = () => {
+    this.stepsInstances[this.props.step].next();
+    return false;
+  };
 
   render() {
     const {classes, steps, step} = this.props;
@@ -66,7 +72,7 @@ class Wizard extends React.Component {
             <Paper className={classes.paper}>
               {this.stepsComponents[step] && this.stepsComponents[step]}
               <div className={classes.buttonsRow}>
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.nextStep}>
                   {i18next.t('Next step')}
                 </Button>
               </div>
@@ -81,18 +87,13 @@ class Wizard extends React.Component {
 const StyledWizard = withStyles(styles)(Wizard);
 const mapStateToProps = function(store) {
   return {
-    step: store.installationWizard && store.installationWizard.step,
+    step: store.InstallerModule &&
+      store.InstallerModule.installationWizard &&
+      store.InstallerModule.installationWizard.step,
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    NextStep: (step) => {
 
-      dispatch(InstallationStepStart(step))
-    }
-  }
-};
 
-const ConnectedWizard = connect(mapStateToProps, mapDispatchToProps)(StyledWizard);
+const ConnectedWizard = connect(mapStateToProps)(StyledWizard);
 export {ConnectedWizard };

@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import i18next from 'i18next';
+import {connect} from 'react-redux';
+import {InstallationStepStart} from './actions';
+import {AbstractStep} from './AbstractStep';
 // import {connect} from 'react-redux';
 
 
-class Step1 extends React.Component {
+class Step extends AbstractStep {
   static propTypes = {
     // currentStep: PropTypes.number.isRequired,
     // nextStep: PropTypes.oneOfType([
@@ -12,6 +15,11 @@ class Step1 extends React.Component {
     //   PropTypes.exact(false),
     // ]).isRequired
   };
+
+  next() {
+    console.log('Step1 next');
+    this.props.NextStep(this.nextStep);
+  }
 
   render() {
     return (
@@ -22,4 +30,12 @@ class Step1 extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    NextStep: (step) => {
+      dispatch(InstallationStepStart(step))
+    }
+  }
+};
+const Step1 = connect(() => ({}), mapDispatchToProps)(Step);
 export {Step1};
