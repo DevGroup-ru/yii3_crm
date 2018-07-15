@@ -33,12 +33,14 @@ export {
 
 // import {ApiTableReducer} from './ApiTable/reducers';
 
-export default function createReducer(asyncReducers) {
-  return combineReducers({
-    routing: routerReducer,
+export default function createReducer(asyncReducers = {}) {
+  const reducers = {
+    router: routerReducer,
     // apiTable: ApiTableReducer,
     LoadedModules,
     form,
     ...asyncReducers
-  }, {});
+  };
+  console.log('!reducers', reducers);
+  return combineReducers(reducers, {});
 }

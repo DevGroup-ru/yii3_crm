@@ -1,4 +1,5 @@
 <?php
 return [
-    'Hi' => 'Hi FOO',
+    'Yii3 CRM Installation' => 'Yii3 CRM Installation',
+    'Next step' => 'Next',
 ];

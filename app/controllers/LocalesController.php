@@ -17,6 +17,9 @@ class LocalesController extends Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         Yii::$app->language = $language;
+        if ($language === 'ru') {
+            $language = 'ru-RU';
+        }
         try {
             $messageSource = Yii::$app->i18n->getMessageSource($namespace);
             if ($messageSource instanceof FrontendPhpMessageSource) {

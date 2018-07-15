@@ -480,7 +480,7 @@ function configureStore() {
   var initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
 
-  var store = (0, _redux.createStore)((0, _connectedReactRouter.connectRouter)(_history2.default)((0, _reducers2.default)()), initialState, composeEnhancers((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk2.default)
+  var store = (0, _redux.createStore)((0, _reducers2.default)(), initialState, composeEnhancers((0, _redux.applyMiddleware)(ReactRouterMiddleware), (0, _redux.applyMiddleware)(_reduxThunk2.default)
   // applyMiddleware(logger),
   ));
   store.asyncReducers = {};
@@ -488,9 +488,11 @@ function configureStore() {
 }
 
 function injectAsyncReducer(store, name, asyncReducer) {
-  // console.log('injecting async reducer', store, name, asyncReducer);
+
   store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer((0, _reducers2.default)(store.asyncReducers));
+  var reducers = (0, _reducers2.default)(store.asyncReducers);
+  console.log('reducers', reducers);
+  store.replaceReducer(reducers);
 }
 
 /***/ }),
@@ -805,13 +807,17 @@ exports.LoadedModules = LoadedModules;
 
 // import {ApiTableReducer} from './ApiTable/reducers';
 
-function createReducer(asyncReducers) {
-  return (0, _redux.combineReducers)(_extends({
-    routing: _reactRouterRedux.routerReducer,
+function createReducer() {
+  var asyncReducers = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var reducers = _extends({
+    router: _reactRouterRedux.routerReducer,
     // apiTable: ApiTableReducer,
     LoadedModules: LoadedModules,
     form: _reduxForm.reducer
-  }, asyncReducers), {});
+  }, asyncReducers);
+  console.log('!reducers', reducers);
+  return (0, _redux.combineReducers)(reducers, {});
 }
 
 /***/ }),
@@ -1032,7 +1038,6 @@ _i18next2.default.use(_i18nextBrowserLanguagedetector2.default).use(_i18nextXhrB
   if (document.getElementById('CRM__root')) {
     _reactDom2.default.render(_react2.default.createElement(CRM, null), document.getElementById('CRM__root'));
   }
-  store && true;
 });
 
 var RouterHistory = _history2.default;

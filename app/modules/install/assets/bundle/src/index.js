@@ -4,6 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, AppBar, Toolbar, Typography } from '@material-ui/core';
 import i18next from 'i18next';
+import {ConnectedWizard} from './Wizard';
+import reducers from './reducers';
+import {Step1} from './Step1';
 
 const styles = {
   root: {
@@ -18,10 +21,11 @@ function SimpleAppBar(props) {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="title" color="inherit">
-            {i18next.t('Hi')}
+            {i18next.t('Yii3 CRM Installation')}
           </Typography>
         </Toolbar>
       </AppBar>
+
     </div>
   );
 }
@@ -45,11 +49,15 @@ class Installer extends React.Component {
     return (
       <div className="CRM__installer">
         <InstallerBar/>
+        <ConnectedWizard steps={[
+          Step1
+        ]}/>
       </div>
     );
   }
 }
 
 export default {
-  Installer
+  Installer,
+  ReduxReducers: reducers
 };

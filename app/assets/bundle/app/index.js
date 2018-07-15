@@ -83,7 +83,7 @@ i18next
         document.getElementById('CRM__root')
       );
     }
-  })
+  });
 
 
 const RouterHistory = history;

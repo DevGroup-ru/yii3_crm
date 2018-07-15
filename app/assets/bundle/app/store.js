@@ -27,7 +27,10 @@ export default function configureStore(initialState = {}) {
 }
 
 export function injectAsyncReducer(store, name, asyncReducer) {
-  // console.log('injecting async reducer', store, name, asyncReducer);
+
   store.asyncReducers[name] = asyncReducer;
-  store.replaceReducer(createReducer(store.asyncReducers));
+  const reducers = createReducer(store.asyncReducers);
+  console.log('reducers', reducers);
+  store.replaceReducer(reducers);
+
 }
